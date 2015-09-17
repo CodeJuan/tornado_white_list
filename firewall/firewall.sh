@@ -13,7 +13,7 @@ BLACKLIST=./blacklist.txt
 ## For port listing reference see http://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers
 #
 
-ALLOWED="22 25 53 80 443 465 587 993"
+ALLOWED="22 25 53 80 443 465 587 993 8888"
 
 #
 ## Specify where IP Tables is located
@@ -64,7 +64,7 @@ done
 
 for x in `grep -v ^# $BLACKLIST | awk '{print $1}'`; do
 echo "Denying $x..."
-$IPTABLES -A INPUT -s $x -j DROP
+# $IPTABLES -A INPUT -s $x -j DROP
 done
 
 #
@@ -101,4 +101,5 @@ $IPTABLES -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
 #
 ## Save the rules so they are persistent on reboot.
 #
-/etc/init.d/iptables save
+# /etc/init.d/iptables save
+service iptables save
